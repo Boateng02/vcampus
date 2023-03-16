@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vcampus Registration</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <p><h2>Vcampus Registration</h2></p>
+            <form method="POST">
+                 {{ form.hidden_tag()}}  
+                      <div class="form-group">
+                      <label for="email">Schools:</label>
+                      {{ form.country(class="form-control") }}
+                      {{ form.hidden_tag()}}  
+                      <div class="form-group">
+                      <label for="email">Departments:</label>
+                      {{ form.country(class="form-control") }}
+                  </div>
+                 
+                      <input type="submit" class="btn btn-success" btn-lg>
+              </form>
+
+
+
+        </div>
+        </div>
+
+    </div>
+       
+    <script>
+        school_select = document.getElementById('school');
+        department_select = document.getElementById('department');
+        
+          
+        school_select.onchange = function(){
+            school = school_select.value;
+            fetch('department/' + school).then(function(response){
+                response.json().then(function(data) {
+                    optionHTML = '';
+                    for (department of data.departmentschool) {
+                        optionHTML += '<option value="' + department.id +'">' + department.name + '</option>'
+                    }
+                    department_select.innerHTML = optionHTML;
+                });
+            });
+        }
+       
+        </script>
+    
+
+</body>
+</html>
